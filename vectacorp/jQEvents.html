@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Assignment1 - Practice with jQuery Events</title>
+    <script src="scripts/jquery-3.6.0.min.js"></script>
+    <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <style>
+        .green {
+            border: 2px solid rgba(54, 255, 0, 1);
+        }
+    </style>
+    <script>
+        $(function () {
+            // 16. CLICK() METHOD
+            $('.b16').click(function() {
+                alert('You  just clicked the "Click Method" button');
+            });
+
+            // 17. BIND() METHOD
+            $('.b17').bind('click', function() {
+                alert('You just clicked the "Bind Method" button')
+            });
+            
+            // 18. ON() METHOD
+            $(function () {
+                $('.b18').on('click', function() {
+                    alert('You just clicked the "On Method" button');
+                });
+            }); 
+
+            // 19. ATTACHING AN EVENT HANDLER TO 2 BUTTONS SIMULTANEOUSLY
+            $('.b19, .b195').on('click', function() {
+                alert('You just clicked Button 1 or Button 2');
+            });
+
+            // 20. ATTACHING DIFFERENT EVENT HANDLERS
+            // $('div').css('width', '400px').css('height', '400px').css('background', 'silver')
+            // .on({
+            //     click: function() {
+            //         alert('You just clicked the div');
+            //     }, 
+            //     mouseenter: function() {
+            //         alert('You just hovered over the div');
+            //     },
+            //     mouseleave: function() {
+            //         alert('The mouse left the div');
+            //     }
+            // });
+
+            // 21. ATTACHING DIFFERENT EVENT HANDLERS AND USING SPAN TO DISPLAY THE TEXT
+            // $('div').css('width', '400px').css('height', '400px').css('background', 'silver')
+            //     .on({
+            //         click: function() {
+            //             $('span').text('You just clicked the div');
+            //         }, 
+            //         mouseenter: function() {
+            //             $('span').text('You just hovered over the div');
+            //         },
+            //         mouseleave: function() {
+            //             $('span').text('The mouse left the div');
+            //         }
+            // });
+
+            // 22. WORKING WITH EVENT OBJECT
+            $('a').click(function(e) {
+                e.preventDefault();
+                $(this).css('color', 'red');
+                alert(`"${e.target.nodeName}" node has triggered the event`);
+            });
+
+            // 23. WORKING WITH BROWSER EVENTS
+            $(window).resize(function () {
+                $('.resize').text(`Window width is ${$(window).width()} and window height is ${$(window).height()}.`);
+            });
+
+            // 24. WORKING WITH FORM EVENTS
+            $('.form24').focus(function() {
+                $(this).css('background', 'silver');
+            });
+            $('.form24').blur(function(){
+                $(this).css('background', 'white');
+            });
+
+            // 25. FORM VALIDATION
+                 
+           $('.text, .email').blur(function() {
+                    $(this).css('border', '');
+            });
+            
+            $('.text, .email').change(function() {
+                if ($('.text').val() != '' && $('.email').val() !== '') {
+                    $('.email').addClass('green');
+                    $('.text').addClass('green');
+                } else {
+                        $('.text').removeClass('green');
+                        $('.email').removeClass('green');
+                }
+            });
+
+            $('form').submit(function(e) {
+                let fullName = $('.text').val().trim();
+                let email = $('.email').val().trim();
+                isValid = true; 
+
+                if (fullName == '' && email == '') {
+                    alert('These field(s) are required');
+                        $('.text').css('border', ' 2px solid red');
+                        $('.email').css('border', ' 2px solid red');
+                        isValid = false;
+                } else {
+                        $('.text').val(fullName);
+                        $('.email').val(email);
+                        
+                }
+
+                if (fullName == '' && email !== '') {
+                        alert('These field(s) are required');
+                        $('.text').css('border', ' 2px solid red');
+                        isValid = false;
+                } else {
+                        $('.text').val(fullName);
+                }
+                if (email == '' && fullName !== '') {
+                        alert('These field(s) are required');
+                        $('.email').css('border', ' 2px solid red');
+                        isValid = false;
+                } else {
+                        $('.email').val(email);
+                }
+                
+                if (isValid == false) {
+                    e.preventDefault();
+                }      
+            });
+        });
+    </script>
+</head>
+
+<body>
+    
+    <button class="b16">Click Method</button> <br><br>
+    <button class="b17">Bind Method</button> <br><br>
+    <button class="b18">On Method</button><br><br><br><br>
+
+    <button class="b19">Button 1</button>
+    <button class="b195">Button 2</button><br><br><br><br>
+
+    <div></div>
+    <span></span>
+
+    <a href="http://www.modulemedia.com">Click the link</a> <br><br>
+
+    <div class="resize"></div> <br>
+
+    24. Working with form events
+    <input type="text" maxlength="15" class="form24"><br><br><br>
+
+    25. Form validation
+    <form action="">   
+        <input type="text" class="text"><br><br>
+        <input type="email" class="email"> <br><br>
+        <input type="submit">
+    </form>
+
+</body>
+</html>
